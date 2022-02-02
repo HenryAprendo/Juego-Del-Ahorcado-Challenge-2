@@ -19,6 +19,7 @@ let iniciarJuego = document.querySelector("#iniciar-juego");
 iniciarJuego.addEventListener("click", function(){
 
     palabraSecreta = palabraAleatoria();
+    console.log(palabraSecreta);
     longitud = palabraSecreta.length;
 
     dibujarBase();
@@ -26,24 +27,44 @@ iniciarJuego.addEventListener("click", function(){
 
 });
 
+let contar = 0;    //Control para la impresión del mensaje "ganaste felicidades"
+
 //Detecta la tecla presionada y verifica que este en la palabra secreta.
 document.addEventListener("keyup", function(evento){
     let letra = evento.key;
     let mayuscula = letra.toUpperCase();
+    let validar = true;
     
     for (let i = 0; i < palabraSecreta.length; i++) {
         if (palabraSecreta[i] == mayuscula){
-            console.log(mayuscula);
-            console.log(i);
             let posicion = i;
             descubrirPalabra(mayuscula, posicion);
-        }
-        else {
-            console.log("La letra no esta en la palabra");
+            validar = false;
+
+            contar += 1;
+            console.log(contar);
         }
     }
 
+    if (validar) {
+        mostrarLetraErronea(mayuscula);  
+    }
+
+    if (contar === longitud) {
+        let mensaje1 = "Ganaste,";
+        let mensaje2 = "Felicidades!";
+        let x = 850;
+        let y = 300;
+        imprimirMensaje(mensaje1, x, y);
+        imprimirMensaje(mensaje2, x, y + 50);
+        console.log("Ganaste");
+        console.log(contar);
+        console.log(longitud);
+
+    }
+
 });
+
 
 
 
