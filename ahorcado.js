@@ -9,6 +9,7 @@ function palabraAleatoria() {
     
 }
 
+let caracteresIngresados;
 let contador2;      //Control que impide ingresar letras despues del fin del juego
 let contador1;      //Control para la impresión del mensaje "ganaste felicidades"
 let flagFinal;      //Termina el juego impidiendo el ingreso de mas letras 
@@ -19,6 +20,7 @@ let longitud;
 let iniciarJuego = document.querySelector("#iniciar-juego");
 iniciarJuego.addEventListener("click", function(){
 
+    caracteresIngresados = [];
     contador2 = 0;
     contador1 = 0;
     flagFinal = true;
@@ -32,18 +34,32 @@ iniciarJuego.addEventListener("click", function(){
 });
 
 
+
 //Detecta la tecla presionada y verifica que este en la palabra secreta.
 document.addEventListener("keyup", function(evento){
     let letra = evento.key;
     let mayuscula = letra.toUpperCase();
     let validar = true;
-    let limit = 7;  //Indica que ha sido llegado al ultimo intento, y activa el flagFinal.
+    let limit = 7;  //Indica que ha se ha llegado al ultimo intento, y activa el flagFinal.
+
+    
+    //Ignorar letras repetidas
+    let valor = caracteresIngresados.includes(mayuscula);
+    if (!valor) {
+        caracteresIngresados.push(mayuscula);
+        flagFinal = true;
+    }
+    else {
+        flagFinal = false;
+    }
+    
+    
     
     if (flagFinal){
         for (let i = 0; i < palabraSecreta.length; i++) {
             if (palabraSecreta[i] == mayuscula){
                 let posicion = i;
-                descubrirPalabra(mayuscula, posicion, longitud);
+                descubrirPalabra(mayuscula, posicion);
                 validar = false;
 
                 contador1 += 1;
@@ -74,11 +90,16 @@ document.addEventListener("keyup", function(evento){
 });
 
 
+//Validacion de numeros y caracteres especiales.
 
-
-
-
-
+var valor = "<";
+var nombre = "abcdefghijklmnñopqrstuvwxyz";
+var expresion = new RegExp(valor,"i");
+if(expresion.test(nombre)){
+    console.log("si")
+}else{
+    console.log("no");
+}   
 
 
 

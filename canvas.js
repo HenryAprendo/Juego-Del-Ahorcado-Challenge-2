@@ -38,7 +38,7 @@ function dibujarGuiones(longitud) {
 
 //Función para dibujar las letras que se encuentran en la palabra secreta.
 
-function descubrirPalabra(letra, posicion, longitud) {
+function descubrirPalabra(letra, posicion) {
     let separacion = 80;    // 80px es la separación entre letras
     let xInicial = 304;    //Posicion de la primera letra
     let y = 750;
