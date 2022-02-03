@@ -1,9 +1,7 @@
 // Escoger de manera aleatoria una palabra de la lista.
-
 let palabras = ["JAVASCRIPT", "JAVA", "PYTHON", "RUBY", "NODEJS", "HTML", "CSS" ];
 
 function palabraAleatoria() {
-
     let maximo = palabras.length;
     let aleatorio = Math.random();
     let index = Math.floor(aleatorio * maximo);
@@ -11,6 +9,9 @@ function palabraAleatoria() {
     
 }
 
+let contador2;      //Control que impide ingresar letras despues del fin del juego
+let contador1;      //Control para la impresión del mensaje "ganaste felicidades"
+let flagFinal;      //Termina el juego impidiendo el ingreso de mas letras 
 let palabraSecreta;
 let longitud;
 
@@ -18,6 +19,9 @@ let longitud;
 let iniciarJuego = document.querySelector("#iniciar-juego");
 iniciarJuego.addEventListener("click", function(){
 
+    contador2 = 0;
+    contador1 = 0;
+    flagFinal = true;
     palabraSecreta = palabraAleatoria();
     console.log(palabraSecreta);
     longitud = palabraSecreta.length;
@@ -27,40 +31,44 @@ iniciarJuego.addEventListener("click", function(){
 
 });
 
-let contar = 0;    //Control para la impresión del mensaje "ganaste felicidades"
 
 //Detecta la tecla presionada y verifica que este en la palabra secreta.
 document.addEventListener("keyup", function(evento){
     let letra = evento.key;
     let mayuscula = letra.toUpperCase();
     let validar = true;
+    let limit = 7;  //Indica que ha sido llegado al ultimo intento, y activa el flagFinal.
     
-    for (let i = 0; i < palabraSecreta.length; i++) {
-        if (palabraSecreta[i] == mayuscula){
-            let posicion = i;
-            descubrirPalabra(mayuscula, posicion);
-            validar = false;
+    if (flagFinal){
+        for (let i = 0; i < palabraSecreta.length; i++) {
+            if (palabraSecreta[i] == mayuscula){
+                let posicion = i;
+                descubrirPalabra(mayuscula, posicion);
+                validar = false;
 
-            contar += 1;
-            console.log(contar);
+                contador1 += 1;
+                console.log(contador1);
+            }
         }
-    }
 
-    if (validar) {
-        mostrarLetraErronea(mayuscula);  
-    }
+        if (validar) {
+            mostrarLetraErronea(mayuscula);  
 
-    if (contar === longitud) {
-        let mensaje1 = "Ganaste,";
-        let mensaje2 = "Felicidades!";
-        let x = 850;
-        let y = 300;
-        imprimirMensaje(mensaje1, x, y);
-        imprimirMensaje(mensaje2, x, y + 50);
-        console.log("Ganaste");
-        console.log(contar);
-        console.log(longitud);
+            if (contador2 > limit) {
+                flagFinal = false;
+            }
+            contador2++;
+        }
 
+        if (contador1 === longitud) {
+            let mensaje1 = "Ganaste,";
+            let mensaje2 = "Felicidades!";
+            let x = 850;
+            let y = 300;
+            imprimirMensaje(mensaje1, x, y);
+            imprimirMensaje(mensaje2, x, y + 50);
+            flagFinal = false;
+        }
     }
 
 });

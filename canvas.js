@@ -84,7 +84,7 @@ function imprimirMensaje(mensaje, x, y) {
 }
 
 
-
+//Funcion que dibuja la estructura de la horca.
 
 
 
