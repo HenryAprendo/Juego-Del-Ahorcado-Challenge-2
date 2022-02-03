@@ -43,16 +43,16 @@ document.addEventListener("keyup", function(evento){
         for (let i = 0; i < palabraSecreta.length; i++) {
             if (palabraSecreta[i] == mayuscula){
                 let posicion = i;
-                descubrirPalabra(mayuscula, posicion);
+                descubrirPalabra(mayuscula, posicion, longitud);
                 validar = false;
 
                 contador1 += 1;
-                console.log(contador1);
             }
         }
 
         if (validar) {
             mostrarLetraErronea(mayuscula);  
+            dibujarHorca();
 
             if (contador2 > limit) {
                 flagFinal = false;

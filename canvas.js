@@ -38,7 +38,7 @@ function dibujarGuiones(longitud) {
 
 //Función para dibujar las letras que se encuentran en la palabra secreta.
 
-function descubrirPalabra(letra, posicion) {
+function descubrirPalabra(letra, posicion, longitud) {
     let separacion = 80;    // 80px es la separación entre letras
     let xInicial = 304;    //Posicion de la primera letra
     let y = 750;
@@ -81,11 +81,37 @@ function imprimirMensaje(mensaje, x, y) {
     pincel.font = "40px Georgia";
     pincel.fillStyle = "blue";
     pincel.fillText(mensaje, x, y);
+    contador = 0;
 }
 
 
 //Funcion que dibuja la estructura de la horca.
+function dibujarHorca() {
+    pincel.beginPath();
+    pincel.strokeStyle = "darkblue";
+    pincel.lineWidth = 9;
+    pincel.moveTo(150, 725);
+    pincel.lineTo(150, 100);
+    pincel.stroke();
+    pincel.closePath();
+}
 
+
+
+/*var x = 100;
+var y = 100;
+
+dibujarlinea("blue", x-1, y-1, x+1, y+1);
+
+    function dibujarlinea(color,xinicial,yinicial,xfinal,yfinal){
+    lienzo.beginPath();
+    lienzo.strokeStyle = color;
+    lienzo.lineWidth = 3;
+    lienzo.moveTo(xinicial,yinicial);
+    lienzo.lineTo(xfinal,yfinal);
+    lienzo.stroke();
+    lienzo.closePath();
+    }*/
 
 
 
