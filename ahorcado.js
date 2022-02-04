@@ -34,72 +34,59 @@ iniciarJuego.addEventListener("click", function(){
 });
 
 
-
-//Detecta la tecla presionada y verifica que este en la palabra secreta.
+//Detecta la tecla presionada y verifica que esté en la palabra secreta.
 document.addEventListener("keyup", function(evento){
     let letra = evento.key;
-    let mayuscula = letra.toUpperCase();
-    let validar = true;
-    let limit = 7;  //Indica que ha se ha llegado al ultimo intento, y activa el flagFinal.
+    let codigoAsc = letra.charCodeAt(letra);
 
-    
-    //Ignorar letras repetidas
-    let valor = caracteresIngresados.includes(mayuscula);
-    if (!valor) {
-        caracteresIngresados.push(mayuscula);
-        flagFinal = true;
-    }
-    else {
-        flagFinal = false;
-    }
-    
-    
-    
-    if (flagFinal){
-        for (let i = 0; i < palabraSecreta.length; i++) {
-            if (palabraSecreta[i] == mayuscula){
-                let posicion = i;
-                descubrirPalabra(mayuscula, posicion);
-                validar = false;
 
-                contador1 += 1;
+    if (codigoAsc >= 97 && codigoAsc <= 122) {
+
+        let mayuscula = letra.toUpperCase();
+        let validar = true;
+        let limit = 7; 
+
+        //Ignorar letras repetidas
+        let valor = caracteresIngresados.includes(mayuscula);
+                
+        if (flagFinal && !valor){
+            caracteresIngresados.push(mayuscula);  
+
+            for (let i = 0; i < palabraSecreta.length; i++) {
+                if (palabraSecreta[i] == mayuscula){
+                    let posicion = i;
+                    descubrirPalabra(mayuscula, posicion);
+                    validar = false;
+
+                    contador1 += 1;
+                }
             }
-        }
 
-        if (validar) {
-            mostrarLetraErronea(mayuscula);  
-            dibujarHorca();
+            if (validar) {
+                mostrarLetraErronea(mayuscula);  
+                dibujarHorca();
 
-            if (contador2 > limit) {
+                if (contador2 > limit) {
+                    flagFinal = false;
+                }
+                contador2++;
+            }
+
+            if (contador1 === longitud) {
+                let mensaje1 = "Ganaste,";
+                let mensaje2 = "Felicidades!";
+                let x = 850;
+                let y = 300;
+                imprimirMensaje(mensaje1, x, y);
+                imprimirMensaje(mensaje2, x, y + 50);
                 flagFinal = false;
             }
-            contador2++;
-        }
-
-        if (contador1 === longitud) {
-            let mensaje1 = "Ganaste,";
-            let mensaje2 = "Felicidades!";
-            let x = 850;
-            let y = 300;
-            imprimirMensaje(mensaje1, x, y);
-            imprimirMensaje(mensaje2, x, y + 50);
-            flagFinal = false;
         }
     }
 
 });
 
 
-//Validacion de numeros y caracteres especiales.
-
-var valor = "<";
-var nombre = "abcdefghijklmnñopqrstuvwxyz";
-var expresion = new RegExp(valor,"i");
-if(expresion.test(nombre)){
-    console.log("si")
-}else{
-    console.log("no");
-}   
 
 
 
