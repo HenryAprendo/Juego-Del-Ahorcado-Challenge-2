@@ -15,6 +15,7 @@ let contador1;      //Control para la impresión del mensaje "ganaste felicidade
 let flagFinal;      //Termina el juego impidiendo el ingreso de mas letras 
 let palabraSecreta;
 let longitud;
+let coordenadas;
 
 //Button de iniciar juego: Genera una palabra secreta y dibuja el número de guiones.
 let iniciarJuego = document.querySelector("#iniciar-juego");
@@ -25,9 +26,7 @@ iniciarJuego.addEventListener("click", function(){
     contador1 = 0;
     flagFinal = true;
     palabraSecreta = palabraAleatoria();
-    console.log(palabraSecreta);
     longitud = palabraSecreta.length;
-
     dibujarBase();
     dibujarGuiones(longitud);
 
@@ -39,14 +38,10 @@ document.addEventListener("keyup", function(evento){
     let letra = evento.key;
     let codigoAsc = letra.charCodeAt(letra);
 
-
     if (codigoAsc >= 97 && codigoAsc <= 122) {
-
         let mayuscula = letra.toUpperCase();
         let validar = true;
         let limit = 7; 
-
-        //Ignorar letras repetidas
         let valor = caracteresIngresados.includes(mayuscula);
                 
         if (flagFinal && !valor){
@@ -57,14 +52,24 @@ document.addEventListener("keyup", function(evento){
                     let posicion = i;
                     descubrirPalabra(mayuscula, posicion);
                     validar = false;
-
                     contador1 += 1;
                 }
             }
 
             if (validar) {
                 mostrarLetraErronea(mayuscula);  
-                dibujarHorca();
+
+                if (contador2 !== 3) {
+                    coordenadas = buscarCoordenadas(contador2);
+                    let {xInicial, yInicial, xFinal, yFinal} = coordenadas;
+                    dibujarHorca(xInicial, yInicial, xFinal, yFinal);
+                }
+                else {
+                    let x = 545
+                    let y = 250
+                    dibujarCirculo(x, y, 50, "darkblue");
+                    dibujarCirculo(x, y, 40, "white");
+                }
 
                 if (contador2 > limit) {
                     flagFinal = false;
@@ -77,14 +82,31 @@ document.addEventListener("keyup", function(evento){
                 let mensaje2 = "Felicidades!";
                 let x = 850;
                 let y = 300;
-                imprimirMensaje(mensaje1, x, y);
-                imprimirMensaje(mensaje2, x, y + 50);
+                imprimirMensajeFinal(mensaje1, x, y, "green");
+                imprimirMensajeFinal(mensaje2, x, y + 50, "green");
                 flagFinal = false;
             }
         }
     }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

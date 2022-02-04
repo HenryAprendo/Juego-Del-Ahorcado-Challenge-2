@@ -3,11 +3,11 @@ let pincel = pantalla.getContext("2d");
 let contador = 0;
 
 function dibujarBase() {
-    pincel.fillStyle = "lightgray";
+    pincel.fillStyle = "white";
     pincel.fillRect(0, 0, 1200, 800);
     pincel.fill();
 
-    pincel.fillStyle = "black";
+    pincel.fillStyle = "darkblue";
     pincel.beginPath();
     pincel.moveTo(150, 720);
     pincel.lineTo(50, 760);
@@ -24,11 +24,7 @@ function dibujarBase() {
 }
 
 function dibujarGuiones(longitud) {
-    //let pantalla = document.querySelector("#ahorcado");
-    //let pincel = pantalla.getContext("2d");  
-
     let x = 300;
-
     for (let i = 0; i < longitud; i++) {
         pincel.fillStyle = "black";
         pincel.fillRect(x, 760, 40, 5);
@@ -36,18 +32,34 @@ function dibujarGuiones(longitud) {
     }
 }
 
-//Función para dibujar las letras que se encuentran en la palabra secreta.
+//Funcion que dibuja la estructura de la horca.
+function dibujarHorca(xInicial, yInicial, xFinal, yFinal) {
+    pincel.beginPath();
+    pincel.strokeStyle = "darkblue";
+    pincel.lineWidth = 9;
+    pincel.moveTo(xInicial, yInicial);
+    pincel.lineTo(xFinal, yFinal);
+    pincel.stroke();
+    pincel.closePath();
+}
 
+//Funcion que dibuja circulos
+function dibujarCirculo(x, y, radio, color) {
+    pincel.fillStyle = color;
+    pincel.beginPath();
+    pincel.arc(x, y, radio, 0, 2*3.14);
+    pincel.fill();
+}
+
+//Función para dibujar las letras que se encuentran en la palabra secreta.
 function descubrirPalabra(letra, posicion) {
-    let separacion = 80;    // 80px es la separación entre letras
-    let xInicial = 304;    //Posicion de la primera letra
+    let separacion = 80;   
+    let xInicial = 304;    
     let y = 750;
     let ubicacion = separacion * posicion;   
     let encuentraPosicion = xInicial + ubicacion;
 
-    pincel.font = "50px Georgia";
-    pincel.fillStyle = "black";
-    pincel.fillText(letra, encuentraPosicion, y);
+    imprimirLetra(letra, encuentraPosicion, y);
 
 }
 
@@ -55,63 +67,35 @@ function descubrirPalabra(letra, posicion) {
 function mostrarLetraErronea(letra) {
     let mensaje = "Fin del Juego¡"
     const limite = 7;
-    let y = 400;
+    let y = 450;
     let separacion = 40;
     let xInicial = 800;
     let ubicacion = separacion * contador;
-    let encuentraPosicion = xInicial + ubicacion;
+    let encuentraPosicion = xInicial + ubicacion;    
 
     if (contador <= limite) {
-        pincel.font = "50px Georgia";
-        pincel.fillStyle = "red";
-        pincel.fillText(letra, encuentraPosicion, y);
+        imprimirLetra(letra, encuentraPosicion, y);
         contador += 1;
     }
     else {
-        pincel.font = "40px Georgia";
-        pincel.fillStyle = "blue";
-        pincel.fillText(mensaje, 850, 300);
-        contador = 0;
+        imprimirMensajeFinal(mensaje, 850, 350, "red");
     }
 
 }  
 
-//Impresion de mensajes Ganar y fin del juego.
-function imprimirMensaje(mensaje, x, y) {
+function imprimirMensajeFinal(mensaje, x, y, color) {
     pincel.font = "40px Georgia";
-    pincel.fillStyle = "blue";
+    pincel.fillStyle = color;
     pincel.fillText(mensaje, x, y);
     contador = 0;
 }
 
-
-//Funcion que dibuja la estructura de la horca.
-function dibujarHorca() {
-    pincel.beginPath();
-    pincel.strokeStyle = "darkblue";
-    pincel.lineWidth = 9;
-    pincel.moveTo(150, 725);
-    pincel.lineTo(150, 100);
-    pincel.stroke();
-    pincel.closePath();
+function imprimirLetra(mensaje, x, y) {
+    pincel.font = "50px Georgia";
+    pincel.fillStyle = "black";
+    pincel.fillText(mensaje, x, y);
 }
 
-
-
-/*var x = 100;
-var y = 100;
-
-dibujarlinea("blue", x-1, y-1, x+1, y+1);
-
-    function dibujarlinea(color,xinicial,yinicial,xfinal,yfinal){
-    lienzo.beginPath();
-    lienzo.strokeStyle = color;
-    lienzo.lineWidth = 3;
-    lienzo.moveTo(xinicial,yinicial);
-    lienzo.lineTo(xfinal,yfinal);
-    lienzo.stroke();
-    lienzo.closePath();
-    }*/
 
 
 
