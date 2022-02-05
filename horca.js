@@ -1,5 +1,3 @@
-
-
 function buscarCoordenadas(index) {
     let trazos = [
         {

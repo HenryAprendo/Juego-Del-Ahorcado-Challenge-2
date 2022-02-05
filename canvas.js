@@ -3,7 +3,7 @@ let pincel = pantalla.getContext("2d");
 let contador = 0;
 
 function dibujarBase() {
-    pincel.fillStyle = "white";
+    pincel.fillStyle = "greenyellow";
     pincel.fillRect(0, 0, 1200, 800);
     pincel.fill();
 
@@ -20,7 +20,6 @@ function dibujarBase() {
     pincel.lineTo(100, 750);
     pincel.lineTo(200, 750);
     pincel.fill(); 
-
 }
 
 function dibujarGuiones(longitud) {
@@ -83,6 +82,7 @@ function mostrarLetraErronea(letra) {
 
 }  
 
+//Dibuja el mensaje final de acuerdo a si perdió o ganó
 function imprimirMensajeFinal(mensaje, x, y, color) {
     pincel.font = "40px Georgia";
     pincel.fillStyle = color;
@@ -90,6 +90,7 @@ function imprimirMensajeFinal(mensaje, x, y, color) {
     contador = 0;
 }
 
+//Dibuja la letra correcta o erronea
 function imprimirLetra(mensaje, x, y) {
     pincel.font = "50px Georgia";
     pincel.fillStyle = "black";
